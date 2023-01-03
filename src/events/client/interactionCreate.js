@@ -1,10 +1,10 @@
-const { Events } = require('discord.js')
+const { Events, InteractionType } = require('discord.js')
 
 module.exports = {
   name: Events.InteractionCreate,
   once: false,
   async execute(interaction, client) {
-    if (interaction.isCommand()) {
+    if (InteractionType.ApplicationCommand) {
       const command = interaction.client.commands.get(interaction.commandName)
 
       if (!command) {
@@ -22,8 +22,8 @@ module.exports = {
         })
       }
     } else if (interaction.isButton()) {
+      const { buttons } = client
       const { customId } = interaction
-      const buttons = interaction.client.buttons
 
       const button = buttons.get(customId)
 
@@ -40,6 +40,22 @@ module.exports = {
           content: 'There was an error while executing this button!',
           ephemeral: true
         })
+      }
+    } else if (interaction.type == InteractionType.ModalSubmit) {
+      const { modals } = client
+      const { customId } = interaction
+
+      const modal = modals.get(customId)
+
+      if (!modal) {
+        console.error(`No modal matching ${customId} was found.`)
+        return
+      }
+
+      try {
+        await modal.execute(interaction, client)
+      } catch (err) {
+        console.error(err)
       }
     }
   }
