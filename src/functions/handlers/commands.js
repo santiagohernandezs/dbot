@@ -18,14 +18,14 @@ module.exports = client => {
       const commandsFolder = fs
         .readdirSync(`./src/commands/${folder}`)
         .filter(file => file.endsWith('.js'))
+      console.log(
+        '🚀 ~ file: commands.js:21 ~ client.handleCommands= ~ commandsFolder',
+        commandsFolder
+      )
 
       for (const file of commandsFolder) {
         const command = require(`../../commands/${folder}/${file}`)
         if ('data' in command && 'execute' in command) {
-          console.log(
-            '🚀 ~ file: commands.js:23 ~ client.handleCommands= ~ command',
-            file
-          )
           commands.set(command.data.name, command)
           commandsArray.push(command.data.toJSON())
         }
