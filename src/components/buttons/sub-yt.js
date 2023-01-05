@@ -1,6 +1,6 @@
 module.exports = {
   data: {
-    name: 'sub-yt'
+    name: 'button'
   },
   async execute(interaction, client) {
     await interaction.reply({
