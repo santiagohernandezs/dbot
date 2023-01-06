@@ -9,19 +9,35 @@ const {
 module.exports = {
   data: new SlashCommandBuilder().setName('modal').setDescription('Sends a modal'),
   async execute(interaction, client) {
-    const modal = new ModalBuilder().setCustomId('user').setTitle('Modal Title')
+    const modal = new ModalBuilder().setCustomId('tool').setTitle('User Tool') // the Modal
 
-    const row = new TextInputBuilder()
-      .setLabel('Text Input')
-      .setCustomId('text_input')
-      .setPlaceholder('Placeholder')
+    const userRow = new TextInputBuilder() // The text input
+      .setLabel('User')
+      .setCustomId('username')
+      .setPlaceholder('Wumpus#0001')
       .setStyle(TextInputStyle.Short)
+      .setRequired(true)
 
-    const firstRow = new ActionRowBuilder().addComponents(row)
+    const reasonRow = new TextInputBuilder() // The text input
+      .setLabel('Reason')
+      .setCustomId('reason')
+      .setPlaceholder('Spamming')
+      .setStyle(TextInputStyle.Short)
+      .setRequired(true)
 
+    const detailsRow = new TextInputBuilder() // The text input
+      .setLabel('Details')
+      .setCustomId('details')
+      .setPlaceholder('He spammed the chat with the word "Wumpus"')
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(false)
 
-    modal.addComponents(firstRow, secondRow)
+    const firstRow = new ActionRowBuilder().addComponents(userRow) // The row that contains the text input
+    const secondRow = new ActionRowBuilder().addComponents(reasonRow) // The row that contains the text input
+    const thirdRow = new ActionRowBuilder().addComponents(detailsRow) // The row that contains the text input
 
-    await interaction.showModal(modal)
+    modal.addComponents(firstRow, secondRow, thirdRow) // Add the row to the modal
+
+    await interaction.showModal(modal) // Send the modal
   }
 }

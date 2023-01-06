@@ -26,7 +26,7 @@ module.exports = {
     } else if (interaction.type == InteractionType.ModalSubmit) {
       const { customId } = interaction
 
-      const modal = interaction.client.buttons.get(customId)
+      const modal = interaction.client.modals.get(customId)
 
       if (!modal) {
         console.error(`No modal matching ${customId} was found.`)

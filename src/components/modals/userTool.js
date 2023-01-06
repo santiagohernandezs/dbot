@@ -1,11 +1,13 @@
 module.exports = {
   data: {
-    name: 'user'
+    name: 'tool' // The id of the modal
   },
   async execute(interaction, client) {
+    const { fields } = interaction
+
     interaction.reply({
-      content: `The user that you are looking for is: ${interaction.fields.getTextInputValue(
-        'user'
+      content: `The user that you are looking for is: ${fields.getTextInputValue(
+        'username'
       )}`
     })
   }
