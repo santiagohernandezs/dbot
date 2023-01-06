@@ -1,10 +1,11 @@
 module.exports = {
   data: {
-    name: 'button'
+    name: '1'
   },
   async execute(interaction, client) {
     await interaction.reply({
-      content: 'https://www.youtube.com/channel/UCZ9qFECXgT8YjY8D5xPbT9w'
+      content: 'You clicked the button!',
+      ephemeral: true
     })
   }
 }

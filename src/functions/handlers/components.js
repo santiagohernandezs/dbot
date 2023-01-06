@@ -1,4 +1,3 @@
-const { ModalSubmitFields } = require('discord.js')
 const fs = require('fs')
 
 module.exports = client => {
@@ -10,6 +9,7 @@ module.exports = client => {
         .filter(file => file.endsWith('.js'))
 
       const { buttons, modals } = client
+
       switch (folder) {
         case 'buttons':
           for (const file of component) {
@@ -27,7 +27,7 @@ module.exports = client => {
 
         case 'modals':
           for (const file of component) {
-            const modal = require(` ../../components/${folder}/${file}`)
+            const modal = require(`../../components/${folder}/${file}`)
             modals.set(modal.data.name, modal)
           }
           break

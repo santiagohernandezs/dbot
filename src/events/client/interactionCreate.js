@@ -4,7 +4,8 @@ module.exports = {
   name: Events.InteractionCreate,
   once: false,
   async execute(interaction, client) {
-    if (InteractionType.ApplicationCommand) {
+
+    if (interaction.type == InteractionType.ApplicationCommand) {
       const command = interaction.client.commands.get(interaction.commandName)
 
       if (!command) {
@@ -14,6 +15,7 @@ module.exports = {
 
       try {
         await command.execute(interaction)
+        // console.log(id)
       } catch (error) {
         console.error(error)
         await interaction.reply({
@@ -21,31 +23,10 @@ module.exports = {
           ephemeral: true
         })
       }
-    } else if (interaction.isButton()) {
-      const { buttons } = client
-      const { customId } = interaction
-
-      const button = buttons.get(customId)
-
-      if (!button) {
-        console.error(`No button matching ${customId} was found.`)
-        return
-      }
-
-      try {
-        await button.execute(interaction, client)
-      } catch (err) {
-        console.error(err)
-        await interaction.reply({
-          content: 'There was an error while executing this button!',
-          ephemeral: true
-        })
-      }
     } else if (interaction.type == InteractionType.ModalSubmit) {
-      const { modals } = client
       const { customId } = interaction
 
-      const modal = modals.get(customId)
+      const modal = interaction.client.buttons.get(customId)
 
       if (!modal) {
         console.error(`No modal matching ${customId} was found.`)
@@ -54,6 +35,21 @@ module.exports = {
 
       try {
         await modal.execute(interaction, client)
+      } catch (err) {
+        console.error(err)
+      }
+    } else if (interaction.type == InteractionType.MessageComponent) {
+      const { customId } = interaction
+
+      const button = interaction.client.buttons.get(customId)
+
+      if (!button) {
+        console.error(`No button matching ${customId} was found.`)
+        return
+      }
+
+      try {
+        await button.execute(interaction, client)
       } catch (err) {
         console.error(err)
       }

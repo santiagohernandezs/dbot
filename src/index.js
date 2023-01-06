@@ -7,9 +7,9 @@ const client = new Client({
 })
 
 client.commands = new Collection()
-client.buttons = new Collection()
-client.modals = new Collection()
 client.menus = new Collection()
+client.modals = new Collection()
+client.buttons = new Collection()
 
 const functionsFolder = fs.readdirSync('./src/functions')
 
@@ -26,3 +26,5 @@ client.handleEvents()
 client.handleCommands()
 client.handleComponents()
 client.login(token)
+
+// console.log(client)

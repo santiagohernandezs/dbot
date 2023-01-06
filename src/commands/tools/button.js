@@ -11,11 +11,12 @@ module.exports = {
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setLabel('Click me')
-        .setCustomId('button')
+        .setCustomId('1')
         .setStyle(ButtonStyle.Primary)
     )
 
     await interaction.reply({
+      ephemeral: true,
       components: [row]
     })
   }
