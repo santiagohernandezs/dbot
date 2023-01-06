@@ -1,6 +1,6 @@
 module.exports = {
   data: {
-    name: 'user-tool'
+    name: 'user'
   },
   async execute(interaction, client) {
     interaction.reply({
