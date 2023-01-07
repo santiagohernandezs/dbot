@@ -1,4 +1,4 @@
-const { Events } = require('discord.js')
+const { Events, ActivityType } = require('discord.js')
 
 module.exports = {
   name: Events.ClientReady,
@@ -6,8 +6,8 @@ module.exports = {
   async execute(client) {
     console.log(`${client.user.tag} is ready 🎉!`)
     client.user.setPresence({
-      activities: [{ name: 'discord.js' }],
-      status: 'dnd'
+      activities: [{ name: 'Escuela de Nada', type: ActivityType.Watching }],
+      status: 'online'
     })
   }
 }
