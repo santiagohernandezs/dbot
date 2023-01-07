@@ -1,3 +1,5 @@
+const { EmbedBuilder } = require('discord.js')
+
 module.exports = {
   data: {
     name: 'tool' // The id of the modal
@@ -5,10 +7,13 @@ module.exports = {
   async execute(interaction, client) {
     const { fields } = interaction
 
+    const embed = new EmbedBuilder().setTitle('User Tool').addFields({
+      name: 'Username',
+      value: fields.getTextInputValue('username')
+    })
+
     interaction.reply({
-      content: `The user that you are looking for is: ${fields.getTextInputValue(
-        'username'
-      )}`
+      embeds: [embed]
     })
   }
 }
