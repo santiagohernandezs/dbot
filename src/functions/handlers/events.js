@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { connection } = require('mongoose')
 
 module.exports = client => {
   client.handleEvents = async () => {
@@ -22,6 +23,17 @@ module.exports = client => {
               client.once(event.name, (...args) => event.execute(...args))
             } else {
               client.on(event.name, (...args) => event.execute(...args))
+            }
+          }
+          break
+
+        case 'mongo':
+          for (const file of eventsFolder) {
+            const event = require(`../../events/${folder}/${file}`)
+            if (event.once) {
+              connection.once(event.name, (...args) => event.execute(...args))
+            } else {
+              connection.on(event.name, (...args) => event.execute(...args))
             }
           }
           break
