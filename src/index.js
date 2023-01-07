@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js')
-const { token } = require('../config.json')
+const { token, db_token } = require('../config.json')
+const { connect } = require('mongoose')
 const fs = require('fs')
 
 const client = new Client({
@@ -7,7 +8,7 @@ const client = new Client({
 })
 
 client.commands = new Collection()
-client.menus = new Collection()
+client.selectMenus = new Collection()
 client.modals = new Collection()
 client.buttons = new Collection()
 
@@ -26,5 +27,10 @@ client.handleEvents()
 client.handleCommands()
 client.handleComponents()
 client.login(token)
+;(async () => {
+  await connect(db_token).catch(err => console.error(err))
+})()
+
+
 
 // console.log(client)
