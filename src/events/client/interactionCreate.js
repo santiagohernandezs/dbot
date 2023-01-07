@@ -38,7 +38,7 @@ module.exports = {
       } catch (err) {
         console.error(err)
       }
-    } else if (interaction.type == InteractionType.MessageComponent) {
+    } else if (interaction.isButton()) {
       const { customId } = interaction
 
       const button = interaction.client.buttons.get(customId)
@@ -53,6 +53,23 @@ module.exports = {
       } catch (err) {
         console.error(err)
       }
+    } else if(interaction.isStringSelectMenu()){
+      const { customId } = interaction
+
+      const menu = interaction.client.selectMenus.get(customId)
+
+      if (!menu) {
+        console.error(`No menu matching ${customId} was found.`)
+        return
+      }
+
+      try {
+        await menu.execute(interaction, client)
+      }
+      catch (err) {
+        console.error(err)
+      }
+      
     }
   }
 }
