@@ -1,10 +1,22 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js')
 const { token, db_token } = require('../config.json')
+const Distube = require('distube')
 const { connect } = require('mongoose')
 const fs = require('fs')
 
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildVoiceStates
+  ]
+})
+
+client.distube = new Distube.DisTube(client, {
+  emitNewSongOnly: true,
+  leaveOnStop: false,
+  emitAddSongWhenCreatingQueue: false,
+  emitAddListWhenCreatingQueue: false
 })
 
 client.commands = new Collection()
@@ -30,7 +42,3 @@ client.login(token)
 ;(async () => {
   await connect(db_token).catch(err => console.error(err))
 })()
-
-
-
-// console.log(client)
