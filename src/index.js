@@ -1,6 +1,5 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js')
 const { token, db_token } = require('../config.json')
-const Distube = require('distube')
 const { connect } = require('mongoose')
 const fs = require('fs')
 
@@ -10,13 +9,6 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildVoiceStates
   ]
-})
-
-client.distube = new Distube.DisTube(client, {
-  emitNewSongOnly: true,
-  leaveOnStop: false,
-  emitAddSongWhenCreatingQueue: false,
-  emitAddListWhenCreatingQueue: false
 })
 
 client.commands = new Collection()
