@@ -6,7 +6,7 @@ module.exports = {
   async execute(client) {
     console.log(`${client.user.tag} is ready 🎉!`)
     client.user.setPresence({
-      activities: [{ name: 'Escuela de Nada', type: ActivityType.Watching }],
+      activities: [{ name: 'Dungeons and Dragons', type: ActivityType.Playing }],
       status: 'online'
     })
   }
