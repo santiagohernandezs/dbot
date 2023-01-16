@@ -45,6 +45,15 @@ module.exports = {
       })
       .setTimestamp()
 
+    const date = new Date()
+
+    let channel = interaction.guild.channels.cache.get('1064196585619214436')
+
+    await channel.send({
+      content: `${user} ha obtenido ${points} puntos, operación hecha por ${
+        interaction.user
+      } -> ${date.toDateString()} ${date.toLocaleTimeString()}`
+    })
     await interaction.reply({ embeds: [embed] })
   }
 }
