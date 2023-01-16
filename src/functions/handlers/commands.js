@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { token, application_id, guild_id } = require('../../../config.json')
+const { token, application_id } = require('../../../config.json')
 const { REST, Routes } = require('discord.js')
 
 module.exports = client => {
@@ -35,8 +35,8 @@ module.exports = client => {
     try {
       console.log(`Registrando ${commandsArray.length} comandos...`)
       await rest
-        .put(Routes.applicationGuildCommands(application_id, guild_id), {
-          body: commandsArray,
+        .put(Routes.applicationCommands(application_id), {
+          body: commandsArray
         })
         .then(() => console.log('Comandos registrados correctamente.'))
     } catch (err) {
