@@ -1,10 +1,9 @@
 const fs = require('fs')
-const { token, application_id } = require('../../../config.json')
 const { REST, Routes } = require('discord.js')
 
 module.exports = client => {
   client.handleCommands = async () => {
-    const rest = new REST({ version: '10' }).setToken(token)
+    const rest = new REST({ version: '10' }).setToken(process.env.TOKEN)
     const { commands } = client
     const commandsArray = []
 
@@ -35,7 +34,7 @@ module.exports = client => {
     try {
       console.log(`Registrando ${commandsArray.length} comandos...`)
       await rest
-        .put(Routes.applicationCommands(application_id), {
+        .put(Routes.applicationCommands(process.env.APPLICATION_ID), {
           body: commandsArray
         })
         .then(() => console.log('Comandos registrados correctamente.'))
