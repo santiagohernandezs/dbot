@@ -4,7 +4,8 @@ const UserSchema = new Schema({
   _id: Schema.Types.ObjectId,
   userID: String,
   userName: { type: String, required: true },
-  userTag: { type: String, required: true }
+  userTag: { type: String, required: true },
+  grifts: [String]
 })
 
 module.exports = model('User', UserSchema, 'users')
